@@ -1,0 +1,72 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "hcm": {
+      "organization": {
+        ".read": "auth != null",
+        ".write": "auth != null && (root.child('hcm/users').child(auth.uid).child('role').val() === 'Admin' || auth.token.email === 'attarib352@gmail.com')"
+      },
+      "users": {
+        ".read": "auth != null",
+        "$user_id": {
+          ".read": "auth != null",
+          ".write": "auth != null && ($user_id === auth.uid || root.child('hcm/users').child(auth.uid).child('role').val() === 'Admin' || auth.token.email === 'attarib352@gmail.com')"
+        }
+      },
+      "employees": {
+        ".read": "auth != null",
+        "$employee_id": {
+          ".read": "auth != null",
+          ".write": "auth != null && (root.child('hcm/users').child(auth.uid).child('role').val() === 'Admin' || root.child('hcm/users').child(auth.uid).child('role').val() === 'HR' || auth.token.email === 'attarib352@gmail.com')"
+        }
+      },
+      "attendance": {
+        ".read": "auth != null",
+        "$attendance_id": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        }
+      },
+      "attendance_corrections": {
+        ".read": "auth != null",
+        "$correction_id": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        }
+      },
+      "leave_requests": {
+        ".read": "auth != null",
+        "$leave_id": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        }
+      },
+      "payroll_runs": {
+        ".read": "auth != null",
+        "$payroll_id": {
+          ".read": "auth != null",
+          ".write": "auth != null && (root.child('hcm/users').child(auth.uid).child('role').val() === 'Admin' || auth.token.email === 'attarib352@gmail.com')"
+        }
+      },
+      "announcements": {
+        ".read": "auth != null",
+        "$announcement_id": {
+          ".read": "auth != null",
+          ".write": "auth != null && (root.child('hcm/users').child(auth.uid).child('role').val() === 'Admin' || root.child('hcm/users').child(auth.uid).child('role').val() === 'HR' || auth.token.email === 'attarib352@gmail.com')"
+        }
+      },
+      "notifications": {
+        ".read": "auth != null",
+        "$notification_id": {
+          ".read": "auth != null",
+          ".write": "auth != null"
+        }
+      },
+      "audit_logs": {
+        ".read": "auth != null && (root.child('hcm/users').child(auth.uid).child('role').val() === 'Admin' || root.child('hcm/users').child(auth.uid).child('role').val() === 'HR' || auth.token.email === 'attarib352@gmail.com')",
+        ".write": "auth != null"
+      }
+    }
+  }
+}
